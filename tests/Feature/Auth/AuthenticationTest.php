@@ -27,8 +27,22 @@ class AuthenticationTest extends TestCase
             'password' => 'password',
         ]);
 
-        $this->assertAuthenticated();
-        $response->assertRedirect(RouteServiceProvider::HOME);
+        // $this->assertAuthenticated();
+
+        if($user->getAttribute('role') == 'admin')
+        {
+            $response->assertRedirect('/admin/dashboard');
+            
+        }elseif($user->getAttribute('role') == 'vendor')
+        {
+            $response->assertRedirect('/vendor/dashboard');
+        }elseif($user->getAttribute('role') == 'user')
+        {
+            $response->assertRedirect('/dashboard');
+        }
+
+
+        // $response->assertRedirect(RouteServiceProvider::HOME);
     }
 
     public function test_users_can_not_authenticate_with_invalid_password()
