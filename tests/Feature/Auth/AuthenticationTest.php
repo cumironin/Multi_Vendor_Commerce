@@ -27,7 +27,7 @@ class AuthenticationTest extends TestCase
             'password' => 'password',
         ]);
 
-        // $this->assertAuthenticated();
+        $this->assertAuthenticated();
 
         if($user->getAttribute('role') == 'admin')
         {
@@ -40,8 +40,6 @@ class AuthenticationTest extends TestCase
         {
             $response->assertRedirect('/dashboard');
         }
-
-
         // $response->assertRedirect(RouteServiceProvider::HOME);
     }
 
