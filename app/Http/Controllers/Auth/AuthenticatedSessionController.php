@@ -32,6 +32,11 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $notification = array(
+            'message' => 'Login Successfully',
+            'alert-type' => 'success'
+        );
+
         $url = '';
         if($request->user()->role === 'vendor')
         {
@@ -45,7 +50,8 @@ class AuthenticatedSessionController extends Controller
         }
 
         // return redirect()->intended(RouteServiceProvider::HOME);
-        return redirect()->intended($url);
+        // return redirect()->intended($url);
+        return redirect()->intended($url)->with($notification);
     }
 
     /**
