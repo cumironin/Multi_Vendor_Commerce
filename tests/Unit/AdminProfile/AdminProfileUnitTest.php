@@ -21,6 +21,5 @@ class AdminProfileUnitTest extends TestCase
         ]);
 
         $this->assertEquals('admin@gmail.com', $user->email);
-        
     }
 }
