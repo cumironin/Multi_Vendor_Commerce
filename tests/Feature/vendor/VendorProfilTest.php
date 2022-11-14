@@ -1,29 +1,29 @@
 <?php
 
-namespace Tests\Feature\Admin;
+namespace Tests\Feature\vendor;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class AdminProfileTest extends TestCase
+class VendorProfilTest extends TestCase
 {
     use RefreshDatabase;
    
-    public function test_access_profile_page()
+    public function test_access_vendor_profile_page()
     {
         $user = User::factory()->create([
             'email' => 'admin@gmail.com',
             'password' => '111',
-            'role' => 'admin'
+            'role' => 'vendor'
         ]);
-        $response = $this->actingAs($user)->get('/admin/profile');
+        $response = $this->actingAs($user)->get('/vendor/profile');
 
         $response->assertStatus(200);
     }
 
-    public function test_update_admin_profile()
+    public function test_update_vendor_profile()
     {
         $user = User::factory()->create();
 
@@ -31,12 +31,11 @@ class AdminProfileTest extends TestCase
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->phoneNumber(),
-            'address' => fake()->address()
+            'address' => fake()->address(),
         ];
 
-        $response = $this->actingAs($user)->post('/admin/profile/store', $data);
+        $response = $this->actingAs($user)->post('/vendor/profile/store', $data);
         $response->assertStatus(302);
     }
-
 
 }
