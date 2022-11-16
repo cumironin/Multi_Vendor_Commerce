@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendorController;
+use App\Http\Controllers\BrandController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -65,6 +66,16 @@ Route::middleware(['auth'])->group(function() {
     Route::post('/user/update/password', [UserController::class, 'UserUpdatePassword'])->name('user.update.password');
 });
 
+Route::middleware(['auth','role:admin'])->group(function() {
+    // Brand All Route 
+    Route::controller(BrandController::class)->group(function(){
+       Route::get('/all/brand' , 'AllBrand')->name('all.brand');
+       Route::get('/add/brand' , 'AddBrand')->name('add.brand');
+       Route::post('/store/brand' , 'StoreBrand')->name('store.brand');
+       Route::get('/edit/brand/{id}' , 'EditBrand')->name('edit.brand');
+       Route::post('/update/brand' , 'UpdateBrand')->name('update.brand');
+       Route::get('/delete/brand/{id}' , 'DeleteBrand')->name('delete.brand');
+    });
+});
 
-// Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
-
+// Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login')
